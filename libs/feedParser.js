@@ -6,7 +6,7 @@ const parser = new xml2js.Parser();
 
 module.exports = {
     async load(url) {
-        const { body } = await got(url);
+        const { body } = await got(`http://${url}`);
         const result = await this.parseData(body);
         const items = result.item.map(item => {
             return {

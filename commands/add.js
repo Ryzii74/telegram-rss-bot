@@ -6,7 +6,10 @@ const config = require('../config');
 const feed = require('../libs/feedParser');
 
 module.exports = async function (msg, command) {
-    const link = msg.text.replace(command.substr, '').trim();
+    const link = msg.text
+        .replace(command.substr, '')
+        .trim()
+        .replace(/http[s]?:\/\//, '');
     if (!link) return 'Вы не указали ссылку в качестве аргумента';
 
     let articles;
