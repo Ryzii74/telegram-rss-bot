@@ -28,5 +28,6 @@
   "collections": {
     "users": "users",
     "links": "links"
-  }
+  },
+  "maxUserLinks": 10
 }

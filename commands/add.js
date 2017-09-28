@@ -12,6 +12,10 @@ module.exports = async function (msg, command) {
         .replace(/http[s]?:\/\//, '');
     if (!link) return 'Вы не указали ссылку в качестве аргумента';
 
+    const userId = msg.from.id;
+    const links = await users.getAllLinks(userId);
+    if (links.length >= config.maxUserLinks) return `Вы достигли лимита в количестве ссылок - ${config.maxUserLinks}`;
+
     let articles;
     try {
         articles = await feed.load(link);
@@ -19,7 +23,6 @@ module.exports = async function (msg, command) {
         throw new Error('Не удалось получить данные по ссылке!');
     }
 
-    const userId = msg.from.id;
     await users.addLink(userId, link);
     const lastArticle = articles[0].link;
     await rss.add(userId, link, lastArticle);
