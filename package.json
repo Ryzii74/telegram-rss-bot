@@ -1,0 +1,26 @@
+{
+  "name": "telegram_rss_feed",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "nodemon index.js",
+    "docker-start": "docker-compose build --no-cache && docker-compose up --force-recreate -d",
+    "docker-stop": "docker-compose down -v",
+    "docker-build": "docker build --no-cache -t boronin/rss-bot -f ./Dockerfile .",
+    "docker-push": "docker push boronin/rss-bot:latest",
+    "build-dev": "docker build --no-cache -t rss-bot-dev -f ./dev.dockerfile .",
+    "update": "docker-machine ssh main ./restart.sh",
+    "build-and-update": "npm run docker-build && npm run docker-push && npm run update"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "got": "^7.1.0",
+    "mongodb": "^2.2.31",
+    "nconf": "^0.8.4",
+    "node-telegram-bot-api": "^0.28.0",
+    "xml2js": "^0.4.19"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "bot": {
+    "token": "123",
+    "handlers": [
+      {
+        "name": "add",
+        "substr": "/add"
+      },
+      {
+        "name": "start",
+        "substr": "/start"
+      },
+      {
+        "name": "getAllRss",
+        "substr": "/get"
+      },
+      {
+        "name": "remove",
+        "substr": "/remove"
+      }
+    ]
+  },
+  "db": {
+    "host": "mongodb",
+    "port": "27017",
+    "database": "rss"
+  },
+  "collections": {
+    "users": "users",
+    "links": "links"
+  }
+}
