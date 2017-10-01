@@ -3,6 +3,7 @@
 const got = require('got');
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser();
+const config = require('../config');
 
 module.exports = {
     async load(url) {
@@ -15,7 +16,7 @@ module.exports = {
                 description: item.description[0]
             }
         });
-        return items;
+        return items.slice(0, config.parsing.articlesCountToGet);
     },
 
     parseData(data) {

@@ -29,5 +29,8 @@
     "users": "users",
     "links": "links"
   },
-  "maxUserLinks": 10
+  "maxUserLinks": 10,
+  "parsing": {
+    "articlesCountToGet": 10
+  }
 }

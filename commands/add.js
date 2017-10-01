@@ -24,7 +24,7 @@ module.exports = async function (msg, command) {
     }
 
     await users.addLink(userId, link);
-    const lastArticle = articles[0].link;
-    await rss.add(userId, link, lastArticle);
-    return `Ссылка успешно добавлена в ваш список!\nПоследняя статья - ${lastArticle}`;
+    const articleLinks = articles.map(el => el.link);
+    await rss.add(userId, link, articleLinks);
+    return `Ссылка успешно добавлена в ваш список!\nПоследние 10 статей: ${articleLinks.join('\n')}`;
 };

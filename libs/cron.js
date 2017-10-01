@@ -24,15 +24,8 @@ module.exports = {
                 continue;
             }
 
-            if (item.lastArticle === articles[0].link) {
-                console.log(item.url, `новых новостей - 0`);
-                continue;
-            }
-
-            await rss.setLastArticle(item.url, articles[0].link);
             const usersToSend = await users.getLinkSubscribers(item.url);
 
-            const articleIndex = articles.findIndex(article => article.link === item.lastArticle);
             console.log(item.url, `новых новостей - ${articleIndex}`);
             if (articleIndex !== -1) articles = articles.slice(0, articleIndex);
             articles.reverse().forEach(article => bot.sendToUsers(usersToSend, article.link));
