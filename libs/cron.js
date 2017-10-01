@@ -32,7 +32,7 @@ module.exports = {
             const usersToSend = await users.getLinkSubscribers(item.url);
             newArticles.reverse().forEach(article => bot.sendToUsers(usersToSend, article.link));
 
-            await rss.update(item.url, item.articles, newArticles, 0);
+            await rss.update(item.url, item.articles || [], newArticles || [], 0);
         }
     },
 };

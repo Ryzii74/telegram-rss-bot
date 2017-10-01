@@ -10,7 +10,7 @@ module.exports = {
         const query = { url: rssLink };
         const link = await collection.findOne(query);
         if (link) {
-            await this.update(rssLink, link.articles, [], 1);
+            await this.update(rssLink, link.articles || [], [], 1);
             return;
         }
 
