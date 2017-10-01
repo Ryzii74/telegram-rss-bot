@@ -30,6 +30,7 @@
     "links": "links"
   },
   "maxUserLinks": 10,
+  "oldArticlesCount": 50,
   "parsing": {
     "articlesCountToGet": 10
   }

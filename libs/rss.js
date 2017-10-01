@@ -10,7 +10,7 @@ module.exports = {
         const query = { url: rssLink };
         const link = await collection.findOne(query);
         if (link) {
-            await collection.updateOne(query, { $inc: { users: 1 } });
+            await this.update(rssLink, link.articles, [], 1);
             return;
         }
 
@@ -38,4 +38,14 @@ module.exports = {
             _id: 0,
         }).toArray();
     },
+
+    async update(url, oldArticles, newArticles, newUsers) {
+        const collection = db.get().collection(config.collections.links);
+        const query = { url };
+        const resultArticles = [ ...newArticles, ...oldArticles ].slice(0, config.oldArticlesCount);
+        await collection.updateOne(query, {
+            $inc: { users: newUsers },
+            $set: { articles: resultArticles },
+        });
+    }
 };

@@ -4,6 +4,7 @@ const Feed = require('./feedParser');
 const rss = require('./rss');
 const users = require('./users');
 const bot = require('./bot');
+const Articles = require('./articles');
 
 module.exports = {
     async init() {
@@ -24,11 +25,14 @@ module.exports = {
                 continue;
             }
 
-            const usersToSend = await users.getLinkSubscribers(item.url);
+            const newArticles = Articles.getNew(item.articles, articles);
+            console.log(item.url, `новых новостей - ${newArticles.length}`);
+            if (newArticles.length === 0) continue;
 
-            console.log(item.url, `новых новостей - ${articleIndex}`);
-            if (articleIndex !== -1) articles = articles.slice(0, articleIndex);
-            articles.reverse().forEach(article => bot.sendToUsers(usersToSend, article.link));
+            const usersToSend = await users.getLinkSubscribers(item.url);
+            newArticles.reverse().forEach(article => bot.sendToUsers(usersToSend, article.link));
+
+            await rss.update(item.url, item.articles, newArticles, 0);
         }
     },
 };
