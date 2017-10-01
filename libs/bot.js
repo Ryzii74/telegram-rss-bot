@@ -18,7 +18,7 @@ module.exports = {
                 try {
                     const exec = require(`../commands/${command.name}`);
                     const result = await exec(msg, command);
-                    if (result) bot.sendMessage(msg.chat.id, result);
+                    if (result) this.sendResult(msg.chat.id, result)
                 } catch (err) {
                     console.error('commandError', err);
                     bot.sendMessage(msg.chat.id, err.message);
@@ -40,4 +40,15 @@ module.exports = {
     sendToUsers(users, message) {
         users.forEach(user => this.sendToUser(user, message));
     },
+
+    sendResult(chatId, result) {
+        if (Array.isArray(result)) {
+            result.forEach(message => {
+                bot.sendMessage(chatId, message);
+            });
+            return;
+        }
+
+        bot.sendMessage(chatId, result);
+    }
 };
